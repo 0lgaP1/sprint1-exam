@@ -1,30 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Button} from "./Btn";
 
 function App() {
 
     const [counter, setCounter] = useState<number>(0);
-
-    const setLocalStorage = () => {
-        localStorage.setItem("counterValue", JSON.stringify(counter))
-    }
-
-    const getLocalStorage = () => {
+    useEffect(()=>{
         let valueAsString = localStorage.getItem("counterValue")
+        console.log("Loaded from localStorage:", valueAsString);
         if (valueAsString) {
             let newValue = JSON.parse(valueAsString)
             setCounter(newValue)
         }
-    }
+    }, [])
+    useEffect(()=>{
+        setLocalStorage()
+    }, [counter]);
 
+    const setLocalStorage = () => {
+        localStorage.setItem("counterValue", JSON.stringify(counter));
+    }
+    const getLocalStorage = () => {
+    }
     const clearLocalStorage = () => {
-        localStorage.clear();
-        setCounter(0);
+        // localStorage.clear();
+        // setCounter(0);
     }
-
     const removeItemFromLocStorHandler = () => {
-        localStorage.removeItem("counterValue + 1")
+        //localStorage.removeItem("counterValue + 1")
     }
 
     const incrementCounter = () => {
@@ -55,24 +58,17 @@ function App() {
                     onClick={resetCounter}
                     disabled={counter === 0}/>
             </div>
-            <div className="btn-local-storage-div">
-                <Button
-                    name="setLocalStorage"
-                    onClick={setLocalStorage}
-                    className={"setLocalStorage"}/>
-                <Button
-                    name="getLocalStorage"
-                    onClick={getLocalStorage}
-                    className={"getLocalStorage"}/>
-                <Button
-                    name="clearLocalStorage"
-                    onClick={clearLocalStorage}
-                    className={"clearLocalStorage"}/>
-                <Button
-                    name="removeItemFromLocStor"
-                    onClick={removeItemFromLocStorHandler}
-                    className={"removeItemFromLocStor"}/>
-            </div>
+            {/*<div className="btn-local-storage-div">*/}
+                {/*<Button*/}
+                {/*    name="setLocalStorage"*/}
+                {/*    onClick={setLocalStorage}*/}
+                {/*    className={"setLocalStorage"}/>*/}
+                {/*<Button*/}
+                {/*    name="getLocalStorage"*/}
+                {/*    onClick={getLocalStorage}*/}
+                {/*    className={"getLocalStorage"}/>*/}
+
+            {/*</div>*/}
         </div>
     );
 }
