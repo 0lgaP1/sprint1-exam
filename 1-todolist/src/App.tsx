@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Button} from "./Btn";
+import ProgressBar from "./ProgressBar/ProgressBar";
 
 function App() {
 
@@ -45,7 +46,7 @@ function App() {
             <div className="display">
                 <span style={{ color: counter === 5 ? 'red' : 'black' }}>{counter}</span>
             </div>
-
+            <ProgressBar progress={(counter / 5) * 100} />
             <div className="btn-zone">
                 <Button
                     name="incr"
